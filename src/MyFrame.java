@@ -1,0 +1,91 @@
+import javax.swing.*;
+import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.jar.JarEntry;
+
+public class MyFrame extends JFrame {
+
+    Calendar  calendar;
+    SimpleDateFormat timeFormat;
+    SimpleDateFormat dayFormat;
+    SimpleDateFormat dateFormat;
+
+
+    JLabel timeLabel;
+    String time;
+    String day;
+    String date;
+    JLabel dayLabel;
+    JLabel dateLabel;
+
+
+
+    MyFrame(){
+
+        //UI of the clock
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("My Clock Program");
+        this.setLayout(new FlowLayout());
+        this.setSize(350, 200);
+        this.setResizable(false);
+        this.setVisible(true);
+
+        //Format to create the Time-Day-Date
+        timeFormat = new SimpleDateFormat("hh:mm:ss a");
+        dayFormat =  new SimpleDateFormat("EEEE");
+        dateFormat =  new SimpleDateFormat("MMMMM dd, yyyy");
+
+
+        //Layout Font, color for Time
+        timeLabel = new JLabel();
+        timeLabel.setFont(new Font("Verdana", Font.PLAIN,50));
+        timeLabel.setForeground(new Color(0x00FF00));
+        timeLabel.setBackground(Color.BLACK);
+        timeLabel.setOpaque(true);
+
+        //Layout  day
+        dayLabel = new JLabel();
+        dayLabel.setFont(new Font("Ink ", Font.PLAIN, 35));
+
+        //Layout Day
+        dateLabel = new JLabel();
+        dateLabel.setFont(new Font("Ink ", Font.PLAIN, 25));
+
+        //adding date/time/day to the frame(UI)
+        this.add(timeLabel);
+        this.add(dayLabel);
+        this.add(dateLabel);
+        this.setVisible(true);
+
+        setTime();
+
+
+
+    }
+
+    //refresh the time every 1000millisecond
+    public  void setTime() {
+
+        while(true){
+            time = timeFormat.format(Calendar.getInstance().getTime());
+            timeLabel.setText(time);
+
+            day = dayFormat.format(Calendar.getInstance().getTime());
+            dayLabel.setText(day);
+
+            date = dateFormat.format(Calendar.getInstance().getTime());
+            dateLabel.setText(date);
+
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+}
